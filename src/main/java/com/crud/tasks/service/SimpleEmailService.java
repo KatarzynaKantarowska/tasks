@@ -24,7 +24,7 @@ public class SimpleEmailService {
             javaMailSender.send(mailMessage);
             log.info("Email has been sent.");
         } catch (MailException e) {
-            log.error("Failed to process email sending: " + e.getMessage(), e);
+            log.error("Failed to process email sending: {}", e.getMessage(), e);
         }
     }
 
@@ -33,6 +33,7 @@ public class SimpleEmailService {
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
+        mailMessage.setFrom("noreply");
 
         Optional.ofNullable(mail.getToCc()).ifPresent(mailMessage::setCc);
         return mailMessage;
